@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do App</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            
+        }
+         .container{
+            border: 2px solid black ;
+            width: 350px;
+            height: auto;
+            border-radius: 20px;
+        }
+        .container h2{
+            text-align: center;
+            color: rgb(106, 22, 22);
+        }
+
+          .row{
+            border: 1px solid black;
+            width: 300px;
+            height: 75px;
+            border-radius: 20px;
+            margin-left: 20px;
+         } 
+             
+ 
+
+
+        
+        .ip
+        {
+            margin-left: 10px;
+            margin-top: 20px;
+            border-radius: 15px;
+            padding: 10px;
+            border: none;
+            
+        
+        } 
+        .row button{
+            padding: 8px;
+            border-radius: 15px;
+        }
+        #tasklist
+        {
+            letter-spacing: 0.5px;
+            /* margin-left: 10px; */
+        }
+        li span{
+            float: right;
+            margin-right: 0px;
+            cursor: pointer;
+            color: black;
+
+        }
+        
+         ul li{
+            background-color:pink;
+            list-style-type: none;
+            padding: 10px;
+            width: 250px;
+            margin-top: 8px;
+            border-radius: 15px; 
+
+        } 
+        h2 img{
+            width: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class = "container" >
+          <h2>To Do App <img src="./images/checked.jpg"></h2>
+          <div class="row">
+            <input class="ip" type="text" name="input" id="inputbox" placeholder="Enter your task">
+            <button onclick="addtask()" style="background-color: black; color:white; border: none;">Add Task</button>
+            
+            
+          </div>
+          <ul id = "tasklist">
+            <li>Hello</li>
+        </ul>
+          
+    </div>
+    <script>
+        const inputBox = document.getElementById("inputbox");
+        const tasklist = document.getElementById("tasklist");
+
+        function addtask()
+        {
+            if(inputBox.value == '')
+            {
+                alert("Enter your task");
+            }
+             else (inputBox.value)
+             {
+                let task = document.createElement("LI");
+                task.textContent = inputBox.value;
+                tasklist.appendChild(task);
+
+
+                let span = document.createElement("SPAN");
+                span.innerHTML = '\u00d7'
+                task.appendChild(span);
+             }
+             inputBox.value = ''
+        }
+        tasklist.addEventListener('click' , (event) =>{
+            if(event.target.tagname === "LI"){
+                event.target.classList.toggle("checked");
+                saveData();
+            }
+        
+        else if(event.target.tagName == "SPAN")
+        {
+            event.target.parentElement.remove();
+            saveData();
+        }
+    })
+    function saveData()
+    {
+        localStorage.setItem("Tasks", tasklist.innerHTML);
+    }
+    function showData()
+    {
+         tasklist.innerHTML = localStorage.getItem("Tasks");
+    }
+    showData();
+    </script>
+</body>
+</html>
